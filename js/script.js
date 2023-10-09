@@ -5,7 +5,7 @@ targetBlocks.forEach(block => {
     let target = block.querySelector('.target');
     let targetInfo = block.querySelector('.target-info');
 
-    target.addEventListener('click', () => {
+    function homeTarget() {
         if (target.classList.contains('selected') == false) {
             document.querySelectorAll('.target').forEach(tar => {
                 tar.classList.remove('selected');
@@ -21,7 +21,10 @@ targetBlocks.forEach(block => {
             target.classList.remove('selected');
             targetInfo.style.opacity = "0";
         }
-    });
+    }
+
+    target.addEventListener('click', homeTarget);
+    target.addEventListener('touch', homeTarget);
 });
 
 // Бургер
@@ -43,13 +46,16 @@ const burgerMenuNavItems = burgerMenu.querySelectorAll('nav p');
 const navActive = burgerMenu.querySelector('.nav-active');
 
 burgerMenuNavItems.forEach((item, index) => {
-    item.addEventListener('mouseover', () => {
+    function moveBurgerCursor() {
         burgerMenuNavItems.forEach((navItem, navIndex) => {
             navActive.classList.remove(`nav-active-${navIndex+1}`);
         });
-
+    
         navActive.classList.add(`nav-active-${index+1}`);
-    });
+    }
+
+    item.addEventListener('mouseover', moveBurgerCursor);
+    item.addEventListener('touchstart', moveBurgerCursor);
 });
 
 // Количество комнат
