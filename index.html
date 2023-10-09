@@ -441,18 +441,21 @@
                     <div id="price-wrap" class="col-3">
                         <p class="min-value d-none">6.3</p>
                         <p class="max-value d-none">12.9</p>
-                        <input type="hidden" name="priceMin" value="6.3">
-                        <input type="hidden" name="priceMax" value="12.9">
+                        <input type="hidden" name="minPrice" value="6.3">
+                        <input type="hidden" name="maxPrice" value="12.9">
                         <figure id="price-block">
                             <figcaption>Стоимость, млн.руб.</figcaption>
                             <div id="price" class="select extremum mt-3 position-relative">
                                 <div class="d-flex justify-content-between w-100 h-100">
-                                    <p class="value-start">от 6.3</pv>
-                                    <p class="value-end">до 12.9</p>
+                                    <p class="value value-start d-flex">от 6.3</p>
+                                    <p class="value value-end d-flex">до 12.9</p>
                                 </div>
-                                <div class="mixer">
-                                    <div class="point-start"></div>
-                                    <div class="point-end"></div>
+                                <div class="progress">
+                                    <div></div>
+                                </div>
+                                <div class="range">
+                                    <input type="range" step="0.1" value="6.3" min="6.3" max="12.9" class="range-start">
+                                    <input type="range" step="0.1" value="12.9" min="6.3" max="12.9" class="range-end">
                                 </div>
                             </div>
                         </figure>

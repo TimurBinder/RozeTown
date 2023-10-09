@@ -1,7 +1,26 @@
+try {
+    document.querySelectorAll('input.number').forEach(input => {
+        let regex = new RegExp("/[0-9]/");
+        input.addEventListener('input', (e) => {
+            if (isNaN(e.data) && e.data != null && e.data != ".") {
+                if (e.data == "." && input.value.match(/./g).length > 1)
+                    return;
+                
+                input.value = input.value.slice(0, -1);
+            } else {
+                input.value = parseFloat(input.value).toFixed(1);
+            }
+        });
+    });
+} catch(e) {
+    console.error(e);
+}
+
 // Бургер
 const burger = document.querySelector('.burger');
 const burgerMenu = document.querySelector('.burger-menu');
 const cross = document.querySelector('.cross');
+
 burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
 burgerMenu.style.transitionDuration = "500ms";
 
@@ -109,89 +128,21 @@ floorBlockValues.forEach(value => {
 })
 
 // Стоимость
-const priceWrap = document.querySelector('#price-wrap');
-const priceBlock = priceWrap.querySelector('#price-block');
-const priceMixer = priceBlock.querySelector('.mixer');
-const priceStartPoint = priceMixer.querySelector('.point-start');
-const priceEndPoint = priceMixer.querySelector('.point-end');
-const priceStart = priceBlock.querySelector('.value-start');
-const priceEnd = priceBlock.querySelector('.value-end');
-const priceMin = priceWrap.querySelector('.min-value').textContent;
-const priceMax = priceWrap.querySelector('.max-value').textContent;
-const priceMinInput = priceWrap.querySelector('input[name="priceMin"]');
-const priceMaxInput = priceWrap.querySelector('input[name="priceMax"]');
+try {
+    const wrap = document.querySelector('#price-wrap');
+    const rangeInput = wrap.querySelectorAll('input[type="range"]');
+    const progress = wrap.querySelector('.progress div');
 
-let priceStartMixerWidth = priceMixer.clientWidth;
-let priceStartMixerLeft = window.getComputedStyle(priceMixer, null).getPropertyValue('left');
-let priceCurrentMixerWidth = priceStartMixerWidth;
-let priceCurrentMixerLeft = parseInt(priceStartMixerLeft);
-let priceStartMouseTarget;
-let selectPoint;
-let prevPoint = undefined;
-let priceMinValue = parseFloat(priceMin);
-let priceMaxValue = parseFloat(priceMax);
-let priceDifferent = priceMaxValue - priceMinValue;
-
-console.log(priceCurrentMixerLeft);
-
-function priceMouseDown(e) {
-    e.preventDefault();
-    priceStartMouseTarget = e;
-
-    selectPoint = e.target;
-    prevPoint = e;
+    rangeInput.forEach(input => {
+        input.addEventListener('input', e => {
+            let minVal = parseFloat(rangeInput[0].value),
+                maxVal = parseFloat(rangeInput[1].value);
+            
+            let percent = ((parseFloat(input.max) - parseFloat(input.min))) / 100;
+            console.log(minVal / rangeInput[0].max);
+            progress.style.left = minVal * percent + "%";
+        });
+    });
+} catch(e) {
+    console.error(e);
 }
-
-function priceMouseMove(e) {
-    e.preventDefault();
-
-    if (priceStartMouseTarget == undefined)
-        return;
-
-    console.log(prevPoint.clientX - e.clientX);
-
-    if (selectPoint == priceEndPoint) {
-        if (priceCurrentMixerWidth >= 0 && priceCurrentMixerWidth <= priceStartMixerWidth) {
-            priceCurrentMixerWidth -= prevPoint.clientX - e.clientX;
-            priceMaxValue -= ((prevPoint.clientX - e.clientX) / priceDifferent);
-        } else {
-            if (priceCurrentMixerWidth <= 0)
-                priceCurrentMixerWidth = 0;
-            else if (priceCurrentMixerWidth >= priceStartMixerWidth)
-                priceCurrentMixerWidth = priceStartMixerWidth;
-        }
-    } else if (selectPoint == priceStartPoint) {
-        if (priceCurrentMixerWidth >= 0 && priceCurrentMixerWidth <= priceStartMixerWidth) {
-            priceCurrentMixerWidth += prevPoint.clientX - e.clientX;
-            priceCurrentMixerLeft -= prevPoint.clientX - e.clientX;
-            priceMinValue -= ((prevPoint.clientX - e.clientX) / priceDifferent);
-        } else {
-            if (priceCurrentMixerWidth <= 0) {
-                priceCurrentMixerWidth = 0;
-            } else if (priceCurrentMixerWidth >= priceStartMixerWidth) {
-                priceCurrentMixerWidth = priceStartMixerWidth;
-            }
-        }
-    }
-
-    priceStart.innerText = `от ${Number(priceMinValue).toFixed(1)}`;
-    priceEnd.innerText = `от ${Number(priceMaxValue).toFixed(1)}`;
-    priceMinInput.value = Number(priceMinValue).toFixed(1);
-    priceMaxValue.value = Number(priceMaxValue).toFixed(1);
-
-    priceMixer.style.width = `${priceCurrentMixerWidth}px`;
-    priceMixer.style.left = `${priceCurrentMixerLeft}px`;
-    prevPoint = e;
-}
-
-function priceMouseUp(e) {
-    e.preventDefault();
-    priceStartMouseTarget = undefined;
-}
-
-priceWrap.addEventListener('mousedown', (e) => priceMouseDown(e));
-priceWrap.addEventListener('touchstart', (e) => priceMouseDown(e));
-priceWrap.addEventListener('mousemove', (e) => priceMouseMove(e));
-priceWrap.addEventListener('touchmove', (e) => priceMouseMove(e));
-document.addEventListener('mouseup', (e) => priceMouseUp(e));
-document.addEventListener('touchend', (e) => priceMouseUp(e));

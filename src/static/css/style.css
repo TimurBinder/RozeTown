@@ -10,7 +10,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video, hr {
+time, mark, audio, video, hr, input {
     margin: 0;
     padding: 0;
     border: 0;
@@ -22,6 +22,10 @@ time, mark, audio, video, hr {
 header * {
     color: #fff;
     text-decoration: none;
+}
+
+footer {
+    padding-top: 100px;
 }
 
 body {
@@ -86,7 +90,12 @@ h2 {
 }
 
 .select.extremum {
-    cursor: default;
+    cursor: auto;
+}
+
+.extremum input {
+    background-color: transparent;
+    margin-left: 5px;
 }
 
 .select.extremum:hover {
@@ -94,31 +103,88 @@ h2 {
     color: #424242;
 }
 
-.select .mixer {
+.select .range {
     align-items: center;
     width: 90%;
-    height: 2px;
-    background-color: #9d9d9d;
+    height: 3px;
+    background-color: transparent;
     position: absolute;
     left: 5%;
     bottom: 0;
 }
 
-.select .mixer div {
-    width: 10px;
-    height: 10px;
+.select .range div {
+    width: 11px;
+    height: 11px;
     border-radius: 100%;
-    background-color: #9d9d9d;
     position: absolute;
     top: -4px;
     cursor: pointer;
 }
 
-.select .mixer div:first-child {
+.progress {
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+    background-color: transparent;
+}
+
+.progress div {
+    height: 4px;
+    background-color: #9d9d9d;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    bottom: -1px;
+}
+
+.range input[type="range"] {
+    background: none;
+    accent-color: #9d9d9d;
+    width: 100%;
+    top: -5px;
+    margin: 0;
+    position: absolute;
+    outline: none;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    pointer-events: none;
+}
+
+.range input[type="range"]::-webkit-slider-thumb {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    top: 2px;
+    z-index: 5;
+    background-color: #9d9d9d;
+    border-radius: 100%;
+    -webkit-appearance: none;
+    pointer-events: auto;
+}
+
+.range input[type="range"]::-moz-range-thumb {
+    width: 10px;
+    height: 10px;
+    position: relative;
+    top: 2px;
+    z-index: 5;
+    background-color: #9d9d9d;
+    border-radius: 100%;
+    -moz-appearance: none;
+    pointer-events: auto;
+}
+
+.range input[type="range"]:hover {
+    accent-color: #9d9d9d;
+}
+
+.range-start {
     left: 0;
 }
 
-.select .mixer div:last-child {
+.range-end {
     right: 0;
 }
 
@@ -194,7 +260,7 @@ h2 {
 
 .burger-menu .nav-active {
     position: absolute;
-    right: 105%;
+    left: -40px;
     transition-duration: 300ms;
 }
 
