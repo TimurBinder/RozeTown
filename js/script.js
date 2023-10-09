@@ -24,7 +24,7 @@ targetBlocks.forEach(block => {
     }
 
     target.addEventListener('click', homeTarget);
-    target.addEventListener('touch', homeTarget);
+    target.addEventListener('touchend', homeTarget);
 });
 
 // Бургер
@@ -38,7 +38,15 @@ burger.addEventListener('click', () => {
     burgerMenu.style.left = "0";
 });
 
+burger.addEventListener('touchend', () => {
+    burgerMenu.style.left = "0";
+});
+
 cross.addEventListener('click', () => {
+    burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
+});
+
+cross.addEventListener('touchend', () => {
     burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
 });
 

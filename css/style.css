@@ -15,7 +15,7 @@ time, mark, audio, video, hr {
     padding: 0;
     border: 0;
     font-size: 100%;
-    font-family: 'Gilroy';
+    font-family: 'Gilroy', sans-serif;
     vertical-align: baseline; 
 }
 
@@ -232,7 +232,30 @@ h2 {
 }
 
 .logo {
-    width: 60%;
+    width: 100%;
+    text-align: center;
+}
+
+.logo img {
+    width: 50%;
+}
+
+.logo .name {
+    font-family: 'Bachnsrift', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    white-space: nowrap;
+    text-align: center;
+    margin-top: 10px;
+    line-height: 1.1;
+}
+
+.logo .desc {
+    font-size: 5px;
+    line-height: 1.751;
+    font-weight: 200;
+    white-space: nowrap;
+    letter-spacing: .1rem;
 }
 
 .button {
@@ -491,6 +514,14 @@ h2 {
 }
 
 @media (min-width: 576px) {
+    .logo .name {
+        font-size: 19px;
+    }
+    
+    .logo .desc {
+        font-size: 7.5px;
+    }
+
     .phone {
         font-size: 16px;
     }
@@ -551,9 +582,19 @@ h2 {
         font-size: 20px;
     }
 
-    .logo {
-        width: 40%;
+    .logo img {
+        width: 18%;
     }
+
+    .logo .name {
+        font-size: 20px;
+    }
+    
+    .logo .desc {
+        font-size: 8px;
+        line-height: 1.751;
+    }
+    
 
     .target-info {
         padding: 35px;
@@ -614,8 +655,12 @@ h2 {
 }
 
 @media (min-width: 992px) {
-    .logo {
-        width: 20%;
+    .logo .name {
+        font-size: 28px;
+    }
+    
+    .logo .desc {
+        font-size: 12px;
     }
 
     .menu {
@@ -671,8 +716,17 @@ h2 {
         left: -60%;
     }
 
-    .logo {
-        width: 30%;
+    .logo img {
+        width: 18%;
+    }
+
+    .logo .name {
+        font-size: 30px;
+    }
+    
+    .logo .desc {
+        font-size: 13.2px;
+        line-height: 1.751;
     }
     
     .menu {
@@ -731,6 +785,18 @@ h2 {
         font-size: 48px;
     }
 
+    .logo img {
+        width: 16%;
+    }
+
+    .logo .name {
+        font-size: 36px;
+    }
+    
+    .logo .desc {
+        font-size: 16px;
+    }
+
     .menu {
         margin-top: 60px;
     }
@@ -772,6 +838,18 @@ h2 {
 @media (min-width: 1600px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1600px;
+    }
+
+    .logo img {
+        width: 15%;
+    }
+
+    .logo .name {
+        font-size: 38px;
+    }
+    
+    .logo .desc {
+        font-size: 17px;
     }
 
     .select {
