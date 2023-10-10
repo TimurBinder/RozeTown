@@ -841,6 +841,37 @@ figure div {
     z-index: 1;
 }
 
+/* Информационные блоки */
+section.info {
+    margin-top: 120px;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background-color: #f4f6fb;
+}
+
+section.info hr {
+    height: 100px;
+    width: 4px;
+    background-color: #c8cddb;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 20%;
+    display: none;
+}
+
+.num {
+    font-weight: 500;
+    font-size: 72px;
+    color: #2dccff;
+}
+
+.num-desc {
+    font-weight: 500;
+    font-size: 36px;
+    color: #424242;
+}
+
 @media (min-width: 576px) {
     .logo .name {
         font-size: 19px;
@@ -1163,6 +1194,18 @@ figure div {
         height: 450px;
         position: relative;
     }
+
+    section.info hr {
+        display: block;
+    }
+
+    .num {
+        font-size: 46px;
+    }
+
+    .num-desc {
+        font-size: 32px;
+    }
 }
 
 @media (min-width: 1400px) {
@@ -1253,6 +1296,14 @@ figure div {
     .appartment-slider .images {
         height: 550px;
         position: relative;
+    }
+
+    .num {
+        font-size: 66px;
+    }
+
+    .num-desc {
+        font-size: 32px;
     }
 }
 @media (min-width: 1600px) {
