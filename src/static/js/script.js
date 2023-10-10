@@ -98,29 +98,39 @@ try {
     console.error(e);
 }
 
-// Количество комнат
-const roomsCount = document.querySelector('#roomsCount');
-const roomsCountSelects = roomsCount.querySelectorAll('.select');
+function radioInput(wrap) {
+    // Количество комнат
+    const selects = wrap.querySelectorAll('.select');
 
-roomsCountSelects.forEach(select => {
-    select.addEventListener('click', () => {
-        let input = select.querySelector('input');
-        let condition = input.checked;
+    selects.forEach(select => {
+        select.addEventListener('click', () => {
+            let input = select.querySelector('input');
+            let condition = input.checked;
 
-        roomsCountSelects.forEach(sel => {
-            sel.classList.remove('selected');
-            sel.querySelector('input').checked = false;
+            selects.forEach(sel => {
+                sel.classList.remove('selected');
+                sel.querySelector('input').checked = false;
+            });
+
+            if (condition == false) {
+                input.checked = true;
+                select.classList.add('selected');
+            } 
         });
-
-        if (condition == false) {
-            input.checked = true;
-            select.classList.add('selected');
-        } 
     });
-});
+}
 
-function selectInput(wrapSelector) {
-    const block = document.querySelector(wrapSelector);
+// Radio Inputs
+try {
+    const radioInputWrap = document.querySelectorAll('[data-radio]');
+    radioInputWrap.forEach(wrap => {
+        radioInput(wrap);
+    });
+} catch(e) {
+    console.error(e);
+}
+
+function selectInput(block) {
     const blockSelect = block.querySelector('select');
     const blockValuesBlock = block.querySelector('.select-values');
     const blockValues = blockValuesBlock.querySelectorAll('option');
@@ -142,24 +152,14 @@ function selectInput(wrapSelector) {
         value.addEventListener('click', () => {
             blockSelect.value = value.value;
             blockValueElement.innerText = value.value;
-            console.log(blockSelect.value);
         });
     })
 }
 
-// Этаж
-try {
-    selectInput('#floor-wrap');
-} catch(e) {
-    console.error(e);
-}
-
-// Тип квартиры 
-try {
-    selectInput('#type-wrap');
-} catch(e) {
-    console.error(e);
-}
+// Select Inputs
+const selectWrap = document.querySelectorAll('[data-select]').forEach(wrap => {
+    selectInput(wrap);
+});
 
 function rangeInput(wrapSelector, priceGap) {
     const wrap = document.querySelector(wrapSelector),
@@ -198,6 +198,156 @@ try {
 // Площадь
 try {
     rangeInput('#square-wrap', 1);
+} catch(e) {
+    console.error(e);
+}
+
+// Информация о квартире
+// Слайдер
+function createSlider(slider, progress) {
+    const imagesBlock = slider.querySelector('.images');
+    const images = imagesBlock.querySelectorAll('img');
+    let currentIndex = 0;
+    progress.querySelector('.current').innerText = "1";
+
+    progress.querySelector('.arrow-left').addEventListener('click', () => {
+        images[currentIndex].classList.remove('selected');
+        currentIndex--;
+
+        if (currentIndex < 0)
+            currentIndex = images.length - 1;
+
+        images[currentIndex].classList.add('selected');
+
+        progress.querySelector('.current').innerText = currentIndex + 1;
+    });
+
+    progress.querySelector('.arrow-right').addEventListener('click', () => {
+        images[currentIndex].classList.remove('selected');
+        currentIndex++;
+
+        if (currentIndex > images.length - 1)
+            currentIndex = 0;
+
+        images[currentIndex].classList.add('selected');
+
+        progress.querySelector('.current').innerText = currentIndex + 1;
+    });
+}
+
+try {
+    const slider = document.querySelector('.appartment-block .appartment-slider');
+    const progress = document.querySelector('.slider-progress');
+    createSlider(slider, progress);
+} catch(e) {
+    console.error(e);
+}
+
+// Выбор квартиры
+function showAppartmentInfo(appartment) {
+    const info = document.querySelector('.appartment-block');
+
+    info.querySelector('[name="home"]').value = document.querySelector('.choose-apartment [name="selectHome"]').value;
+    info.querySelector('[name="entrance"]').value = document.querySelector('.choose-apartment input[name="selectEntrance"]').value;
+    info.querySelector('[name="appartment"]').value = appartment.querySelector('.number').textContent;
+    info.querySelector('[name="square"]').value = appartment.querySelector('.square').textContent;
+    info.querySelector('.square').innerText = appartment.querySelector('.square').textContent;
+    info.querySelector('[name="roomsCount"]').value = appartment.querySelector('.rooms-count').textContent;
+    info.querySelector('.rooms-count').innerText = appartment.querySelector('.rooms-count').textContent;
+    info.querySelector('[name="price"]').value = appartment.querySelector('.price').textContent;
+    info.querySelector('.price').innerText = appartment.querySelector('.price').textContent;
+    info.querySelector('[name="hypothec"]').value = appartment.querySelector('.hypothec').textContent;
+    info.querySelector('.hypothec').innerText = appartment.querySelector('.hypothec').textContent;
+    info.querySelector('.light-side').innerText = appartment.querySelector('.light-side').textContent;
+    info.querySelector('.appartment-plan img').src = appartment.querySelector('.plan').getAttribute('data-meta-src');
+
+    info.querySelector('.images').innerHTML = "";
+
+    appartment.querySelectorAll('.images img').forEach((image, index) => {
+        let elem = document.createElement('img');
+        elem.src = image.getAttribute('data-meta-src');
+        if (index == 0) {
+            elem.classList.add('selected');
+        }
+        info.querySelector('.images').insertAdjacentElement('beforeend', elem);
+    });
+}
+
+function switchAppartment(appartment) {
+    document.querySelectorAll('.home .appartment').forEach(appart => {
+        appart.classList.remove('selected');
+    });
+
+    appartment.classList.add('selected');
+    showAppartmentInfo(appartment);
+
+    const slider = document.querySelector('.appartment-block .appartment-slider');
+    const progress = document.querySelector('.slider-progress');
+    createSlider(slider, progress);
+}
+
+try {
+    if (document.querySelector('.home .home-plan .appartment.onsale') != undefined)
+        switchAppartment(document.querySelector('.home .home-plan .appartment.onsale'));
+    else if (document.querySelector('.home .home-plan .appartment.reserve') != undefined)
+        switchAppartment(document.querySelector('.home .home-plan .appartment.booking'));
+    else if (document.querySelector('.home .home-plan .appartment.booking') != undefined)
+        switchAppartment(document.querySelector('.home .home-plan .appartment.booking'));
+} catch(e) {
+    console.error(e);
+}
+
+try {
+    let event;
+    if (window.innerWidth > 992)
+        event = "click";
+    else 
+        event = "touchstart";
+
+    const homes = document.querySelectorAll('.home').forEach(home => {
+        let entrances = home.querySelectorAll('.home-plan').forEach(entrance => {
+            entrance.addEventListener(event, (e) => {
+                if (e.target.classList.contains('appartment')) {
+                    if (e.target.classList.contains('booking') == false 
+                    && e.target.classList.contains('onsale') == false
+                    && e.target.classList.contains('reserve') == false)
+                        return;
+                    document.querySelector('.choose-apartment [name="selectEntrance"]').value = entrance.querySelector('h4').textContent.trim(' ').split(' ')[1];
+                    switchAppartment(e.target);
+                } else if (e.target.parentElement.classList.contains('appartment')) {
+                    if (e.target.parentElement.classList.contains('booking') == false 
+                    && e.target.parentElement.classList.contains('onsale') == false
+                    && e.target.parentElement.classList.contains('reserve') == false)
+                        return;
+                    document.querySelector('.choose-apartment [name="selectEntrance"]').value = entrance.querySelector('h4').textContent.trim(' ').split(' ')[1];
+                    switchAppartment(e.target.parentElement);
+                }
+            });
+        });
+    });
+} catch(e) {
+    console.error(e);
+}
+
+// Выбор дома
+try {
+    const selectWrap = document.querySelector('#home-wrap');
+    const homes = document.querySelectorAll('.home');
+    selectWrap.querySelectorAll('option').forEach(option => {
+        option.addEventListener('click', () => {
+            homes.forEach(home => {
+                if (home.id == `home-${option.textContent}`) {
+                    home.classList.add('selected');
+                    switchAppartment(document.querySelectorAll(`#home-${option.textContent} .home-plan`)[0].querySelector('.appartment'));
+                }
+                else {
+                    home.classList.remove('selected');
+                }
+
+                document.querySelector('input[name="selectHome"]').value = option.textContent;
+            });
+        });
+    });
 } catch(e) {
     console.error(e);
 }
