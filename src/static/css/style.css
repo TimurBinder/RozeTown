@@ -36,6 +36,27 @@ h2 {
     font-weight: 600;
     color: #2dccff;
     text-transform: uppercase;
+    font-size: 24px;
+}
+
+figcaption {
+    color: #9d9d9d;
+    font-weight: 500;
+}
+
+figure div {
+    color: #424242;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.select {
+    font-size: 14px;
+    min-width: 60px;
+    padding: 5px 20px;
+    display: flex;
+    border-radius: 25px;
+    justify-content: center;
 }
 
 .select, .select-values {
@@ -46,17 +67,23 @@ h2 {
 }
 
 .select-values {
-    display: none;
+    display: flex;
+    transform: scaleY(0);
+    transform-origin: 50% 0%;
+    transition-duration: 500ms;
     flex-direction: column;
     align-items: center;
     font-weight: 600;
     font-size: 16px;
     border-radius: 0 0 15px 15px;
     width: 80px;
+    top: 100%;
+    z-index: 5;
+
 }
 
 .select-values.open {
-    display: flex;
+    transform: scaleY(1);
 }
 
 .select-values option {
@@ -333,10 +360,21 @@ h2 {
     text-decoration: none;
     white-space: nowrap;
     transition-duration: 500ms;
+    border: none;
+}
+
+.button.option {
+    background-color: #2dccff;
+    width: 100%;
+    height: 50px;
+}
+
+.button.option:hover {
+    background-color: #f4325f;
 }
 
 .button:hover {
-    background-color: #fd0e46;
+    background-color: #2dccff;
 }
 
 .phone {
@@ -388,12 +426,8 @@ h2 {
     }
 }
 
-.target, .target-info {
-    position: absolute;
-    z-index: 3;
-}
-
 .target {
+    position: absolute;
     color: #fff;
     font-weight: 500;
     font-size: 16px;
@@ -403,6 +437,7 @@ h2 {
     border-radius: 25px;
     cursor: pointer;
     transition-duration: 500ms;
+    z-index: 3;
 }
 
 .target-empty {
@@ -456,6 +491,8 @@ h2 {
 }
 
 .target-info {
+    position: absolute;
+    z-index: -3;
     padding: 20px;
     border-radius: 15px;
     background-color: #fff;
@@ -464,6 +501,14 @@ h2 {
     bottom: -150px;
     opacity: 0;
     transition-duration: 500ms;
+    transform-origin: 50% 0%;
+    transform: scale(0);
+}
+
+.target-info.open {
+    z-index: 3;
+    opacity: 1;
+    transform: scale(1);
 }
 
 .target-info h3 {
@@ -582,6 +627,15 @@ h2 {
 
 #rooms-count-wrap {
     width: 85%;
+}
+
+#type-wrap .select, #type-wrap .select-values {
+    width: 100%;
+    font-size: 18px;
+}
+
+#roomsCount {
+    width: 100%;
 }
 
 @media (min-width: 576px) {
@@ -723,6 +777,13 @@ h2 {
     #target-9 {
         top: 47%;
     }
+
+    #type-wrap .select {
+        width: 300px;
+        height: auto;
+        padding: 5px 20px;
+        font-size: 14px;
+    }
 }
 
 @media (min-width: 992px) {
@@ -777,8 +838,26 @@ h2 {
     }
 
     #target-5 .line, #target-6 .line, #target-3 .line {
-    height: 40px;
-}
+        height: 40px;
+    }
+
+    #type-wrap .select {
+        width: 100%;
+    }
+
+    .choose-apartment .button {
+        width: 100%;
+        height: auto;
+        font-size: 14px;
+    }
+
+    .choose-apartment .select, 
+    .choose-apartment .button,
+    #type-wrap .select 
+    {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -849,6 +928,10 @@ h2 {
     .choose-apartment {
         margin-top: 100px;
     }
+
+    .choose-apartment .button {
+        font-weight: 500;
+    }
 }
 
 @media (min-width: 1400px) {
@@ -900,11 +983,33 @@ h2 {
     #target-6 .line {
         height: 70px;
     }
-
-    #price {
-        width: 386px;
+    
+    .choose-apartment .button {
+           font-size: 20px;
+           padding: 5px 20px;
     }
-}
+
+    #type-wrap .select {
+        width: 100%;
+    }
+
+    .select.extremum {
+        width: 100%;
+        height: auto;
+    }
+
+    .select.extremum div {
+        font-size: 16px;
+    }
+
+    .choose-apartment .select, 
+    .choose-apartment .button,
+    #type-wrap .select,
+    .select.extremum
+    {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
 
 @media (min-width: 1600px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
@@ -926,7 +1031,6 @@ h2 {
     .select {
         font-size: 20px;
         padding: 5px 20px;
-        width: 60px;
         display: flex;
         border-radius: 25px;
         justify-content: center;

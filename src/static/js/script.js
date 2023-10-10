@@ -70,19 +70,25 @@ burgerMenuNavItems.forEach((item, index) => {
                 });
         
                 document.querySelectorAll('.target-info').forEach(info => {
-                    info.style.opacity = '0';
+                    setTimeout(() => {
+                        if (info != targetInfo)
+                            info.classList.remove('open');
+                    }, 500);
                 });
     
                 target.classList.add('selected');
-                targetInfo.style.opacity = '1';
+                targetInfo.classList.add('open');
+
             } else {
                 target.classList.remove('selected');
-                targetInfo.style.opacity = "0";
+                targetInfo.classList.remove('open');
             }
         }
     
-        target.addEventListener('click', homeTarget);
-        target.addEventListener('touchend', homeTarget);
+        if (window.clientWidth > 992)
+            target.addEventListener('click', homeTarget);
+        else 
+            target.addEventListener('touchstart', homeTarget);
     });
 
 // Количество комнат
@@ -106,43 +112,85 @@ roomsCountSelects.forEach(select => {
     });
 });
 
-// Этаж
-const floorBlock = document.querySelector('#floor-block');
-const floorBlockSelect = floorBlock.querySelector('select');
-const floorBlockValuesBlock = floorBlock.querySelector('.select-values');
-const floorBlockValues = floorBlockValuesBlock.querySelectorAll('option');
-const floorBlockValueElement = floorBlock.querySelector('.value');
+function selectInput(wrapSelector) {
+    const block = document.querySelector(wrapSelector);
+    const blockSelect = block.querySelector('select');
+    const blockValuesBlock = block.querySelector('.select-values');
+    const blockValues = blockValuesBlock.querySelectorAll('option');
+    const blockValueElement = block.querySelector('.value');
 
-floorBlock.addEventListener('click', () => {
-    if (floorBlockValuesBlock.classList.contains('open'))
-        floorBlockValuesBlock.classList.remove('open');
-    else
-        floorBlockValuesBlock.classList.add('open');
-});
-floorBlockValues.forEach(value => {
-    value.addEventListener('click', () => {
-        floorBlockSelect.value = value.value;
-        floorBlockValueElement.innerText = value.value;
-        console.log(floorBlockSelect.value);
+    block.addEventListener('click', () => {
+        let condition = blockValuesBlock.classList.contains('open');
+
+        document.querySelectorAll('.select-values.open').forEach(openedSelect => {
+            openedSelect.classList.remove('open');
+        }); 
+
+        if (condition)
+            blockValuesBlock.classList.remove('open');
+        else
+            blockValuesBlock.classList.add('open');
     });
-})
+    blockValues.forEach(value => {
+        value.addEventListener('click', () => {
+            blockSelect.value = value.value;
+            blockValueElement.innerText = value.value;
+            console.log(blockSelect.value);
+        });
+    })
+}
 
-// Стоимость
+// Этаж
 try {
-    const wrap = document.querySelector('#price-wrap');
-    const rangeInput = wrap.querySelectorAll('input[type="range"]');
-    const progress = wrap.querySelector('.progress div');
+    selectInput('#floor-wrap');
+} catch(e) {
+    console.error(e);
+}
+
+// Тип квартиры 
+try {
+    selectInput('#type-wrap');
+} catch(e) {
+    console.error(e);
+}
+
+function rangeInput(wrapSelector, priceGap) {
+    const wrap = document.querySelector(wrapSelector),
+          rangeInput = wrap.querySelectorAll('input[type="range"]'),
+          progress = wrap.querySelector('.progress div'),
+          priceFields = wrap.querySelectorAll('.value');
 
     rangeInput.forEach(input => {
         input.addEventListener('input', e => {
             let minVal = parseFloat(rangeInput[0].value),
                 maxVal = parseFloat(rangeInput[1].value);
-            
-            let percent = ((parseFloat(input.max) - parseFloat(input.min))) / 100;
-            console.log(minVal / rangeInput[0].max);
-            progress.style.left = minVal * percent + "%";
+
+            if (maxVal - minVal < priceGap) {
+                if (e.target.className === "range-start") {
+                    rangeInput[0].value = maxVal - priceGap;
+                } else if (e.target.className === "range-end") {
+                    rangeInput[1].value = minVal + priceGap;
+                }
+            } else {
+                priceFields[0].innerText = `от ${minVal}`;
+                priceFields[1].innerText = `до ${maxVal}`;
+                progress.style.left = ((minVal - rangeInput[1].min) / (rangeInput[1].max - rangeInput[1].min)) * 100 + "%";
+                progress.style.right = 100 - ((maxVal - rangeInput[1].min) / (rangeInput[1].max - rangeInput[1].min)) * 100 + "%";
+            }
         });
     });
+}
+
+// Стоимость
+try {
+    rangeInput('#price-wrap', 0.5);
+} catch(e) {
+    console.error(e);
+}
+
+// Площадь
+try {
+    rangeInput('#square-wrap', 1);
 } catch(e) {
     console.error(e);
 }

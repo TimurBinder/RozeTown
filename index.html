@@ -376,12 +376,12 @@
     <main>
         <section class="choose-apartment">
             <div class="container">
-                <div class="row">
+                <div class="row mt-lg-0 mt-4">
                     <h2>Подобрать квартиру</h2>
                 </div>
 
                 <form method="GET" class="row mt-5">
-                    <div class="col-2">
+                    <div class="col-xxl-2 col-lg-3 col-md-4 col-6">
                         <figure id="rooms-count-wrap">
                             <figcaption>Количество комнат</figcaption>
                             <div id="roomsCount" class="d-flex justify-content-between">
@@ -401,10 +401,10 @@
                         </figure>
                     </div>
 
-                    <div id="floor-wrap" class="col-1">
+                    <div id="floor-wrap" class="col-xxl-1 col-md-2 col-6 position-relative">
                         <figure id="floor-block">
                             <figcaption>Этаж</figcaption>
-                            <p class="select mt-3">
+                            <div class="select mt-3">
                                 <span class="value">1</span> 
                                 <span class="arrow ms-3">
                                     <svg 
@@ -438,11 +438,7 @@
                         </figure>
                     </div>
 
-                    <div id="price-wrap" class="col-3">
-                        <p class="min-value d-none">6.3</p>
-                        <p class="max-value d-none">12.9</p>
-                        <input type="hidden" name="minPrice" value="6.3">
-                        <input type="hidden" name="maxPrice" value="12.9">
+                    <div id="price-wrap" class="col-xxl-3 col-md-6 col-12 order-xxl-0 order-lg-3 order-md-2 mt-xxl-0 mt-lg-4 mt-3">
                         <figure id="price-block">
                             <figcaption>Стоимость, млн.руб.</figcaption>
                             <div id="price" class="select extremum mt-3 position-relative">
@@ -457,6 +453,56 @@
                                     <input type="range" step="0.1" value="6.3" min="6.3" max="12.9" class="range-start">
                                     <input type="range" step="0.1" value="12.9" min="6.3" max="12.9" class="range-end">
                                 </div>
+                            </div>
+                        </figure>
+                    </div>
+
+                    <div id="square-wrap" class="col-xxl-3 col-md-6 col-12 order-xxl-0 order-lg-4 order-md-2 mt-xxl-0 mt-lg-4 mt-3">
+                        <figure id="square-block">
+                            <figcaption>Площадь, м2</figcaption>
+                            <div id="price" class="select extremum mt-3 position-relative">
+                                <div class="d-flex justify-content-between w-100 h-100">
+                                    <p class="value value-start d-flex">от 37,3</p>
+                                    <p class="value value-end d-flex">до 84,6</p>
+                                </div>
+                                <div class="progress">
+                                    <div></div>
+                                </div>
+                                <div class="range">
+                                    <input type="range" step="0.1" value="37.3" min="37.3" max="84.6" class="range-start">
+                                    <input type="range" step="0.1" value="84.6" min="37.3" max="84.6" class="range-end">
+                                </div>
+                            </div>
+                        </figure>
+                    </div>
+
+                    <div class="col-xxl-3 col-lg-5 col-12 mt-lg-0 mt-5 order-xxl-0 order-lg-2 order-md-3 order-2 d-flex align-items-end">
+                        <button class="button option">Показать варианты</button>
+                    </div>
+
+                    <div id="type-wrap" class="col-xxl-3 col-lg-2 col-md-6 col-12 order-xxl-0 order-lg-1 order-md-1 order-1 mt-4 d-xxl-block d-md-flex justify-content-md-end position-relative">
+                        <figure id="type-block">
+                            <figcaption></figcaption>
+                            <div class="select mt-3">
+                                <span class="value">Шахматка</span> 
+                                <span class="arrow ms-3">
+                                    <svg 
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        width="10px" height="6px">
+                                        <path fill-rule="evenodd"  fill="rgb(157, 157, 157)"
+                                        d="M9.1000,-0.000 L-0.003,0.021 L5.025,5.999 L9.1000,-0.000 Z">
+                                    </svg>
+                                </span>
+                                <select name="type" id="type"></select>
+                            </p>
+                            <div class="select-values position-absolute">
+                                <option value="Шахматка">Шахматка</option>
+                                <option value="Тип1">Тип1</option>
+                                <option value="Тип2">Тип2</option>
+                                <option value="Тип3">Тип3</option>
+                                <option value="Тип4">Тип4</option>
+                                <option value="Тип5">Тип5</option>
                             </div>
                         </figure>
                     </div>
