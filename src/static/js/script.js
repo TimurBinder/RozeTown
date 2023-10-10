@@ -351,3 +351,12 @@ try {
 } catch(e) {
     console.error(e);
 }
+
+// Локация
+// Слайдер
+
+try {
+    createSlider(document.querySelector('.location-slider'), document.querySelector('.location-slider-progress'));
+} catch(e) {
+    console.error(e);
+}
