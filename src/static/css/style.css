@@ -936,6 +936,29 @@ section.info hr {
     line-height: 120%;
 }
 
+.info.contacts {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.info.contacts .offer p {
+    font-size: 20px;
+    font-weight: 500;
+    color: #232323;
+    line-height: 120%;
+}
+
+.info.contacts .contacts img {
+}
+
+.info.contacts .contacts p {
+    font-size: 18px;
+    font-weight: 500;
+    color: #9d9d9d;
+    line-height: 120%;
+    text-align: left;
+}
+
 @media (min-width: 576px) {
     .logo .name {
         font-size: 19px;
@@ -1213,9 +1236,26 @@ section.info hr {
         font-size: 14px;
         width: 100%;
     }
+
+    .info.contacts {
+        padding-top: 160px;
+        padding-bottom: 160px;
+    }
+    
+    .info.contacts .offer p {
+        font-size: 20px;
+    }
+    
+    .info.contacts .contacts p {
+        font-size: 20px;
+    }
 }
 
 @media (min-width: 1200px) {
+    h2 {
+        font-size: 40px;
+    }
+
     .burger-menu {
         width: 60%;
         left: -60%;
@@ -1356,6 +1396,19 @@ section.info hr {
 
     .achievement .card img {
         width: 90%;
+    }
+
+    .info.contacts {
+        padding-top: 180px;
+        padding-bottom: 180px;
+    }
+    
+    .info.contacts .offer p {
+        font-size: 24px;
+    }
+    
+    .info.contacts .contacts p {
+        font-size: 24px;
     }
 }
 
