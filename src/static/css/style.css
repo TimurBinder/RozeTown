@@ -1353,6 +1353,10 @@ section.info hr {
     .achievement .card p {
         font-size: 18px;
     }
+
+    .achievement .card img {
+        width: 90%;
+    }
 }
 
 @media (min-width: 1400px) {
