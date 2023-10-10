@@ -948,15 +948,76 @@ section.info hr {
     line-height: 120%;
 }
 
-.info.contacts .contacts img {
-}
-
 .info.contacts .contacts p {
     font-size: 18px;
     font-weight: 500;
     color: #9d9d9d;
     line-height: 120%;
     text-align: left;
+}
+
+.commissioning {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.commissioning .title-caption {
+    font-size: 24px;
+    font-weight: 500;
+    color: #424242;
+}
+
+.commissioning .card {
+    width: 100%;
+    height: 320px;
+    border: none;
+    padding: 30px 40px;
+    background-color: #f4f6fb;
+    background-image: url('../../media/img/modern-house.png');
+    background-repeat: no-repeat;
+    background-size: 90%;
+    background-position: 0 100%;
+    border-radius: 25px;
+}
+
+.commissioning .card.close {
+    background-image: url('../../media/icons/padlock.png');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: 90% 10%;
+}
+
+.commissioning .card.close p {
+    color: #c8cddb;
+}
+
+.commissioning .num {
+    line-height: 100%;
+}
+
+.commissioning .caption {
+    font-weight: 500;
+    font-size: 24px;
+    color: #9d9d9d;
+}
+
+.commissioning .button {
+    background-color: #c8cddb;
+    width: 280px;
+    height: 50px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.commissioning .button:hover {
+    background-color: #f4325f;
+}
+
+.commissioning .date {
+    font-size: 30px;
+    font-weight: 500;
 }
 
 @media (min-width: 576px) {
@@ -1249,6 +1310,10 @@ section.info hr {
     .info.contacts .contacts p {
         font-size: 20px;
     }
+
+    .commissioning .caption {
+        font-size: 18px;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -1408,6 +1473,10 @@ section.info hr {
     }
     
     .info.contacts .contacts p {
+        font-size: 24px;
+    }
+
+    .commissioning .caption {
         font-size: 24px;
     }
 }
@@ -1574,6 +1643,10 @@ section.info hr {
     .location-slider .images {
         width: 800px;
         height: 600px;
+    }
+
+    .commissioning .card {
+        width: 90%;
     }
 }
 
