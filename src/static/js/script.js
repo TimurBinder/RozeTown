@@ -17,46 +17,51 @@ try {
 }
 
 // Бургер
-const burger = document.querySelector('.burger');
-const burgerMenu = document.querySelector('.burger-menu');
-const cross = document.querySelector('.cross');
-
-burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
-burgerMenu.style.transitionDuration = "500ms";
-
-burger.addEventListener('click', () => {
-    burgerMenu.style.left = "0";
-});
-
-burger.addEventListener('touchend', () => {
-    burgerMenu.style.left = "0";
-});
-
-cross.addEventListener('click', () => {
-    burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
-});
-
-cross.addEventListener('touchend', () => {
-    burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
-});
-
-const burgerMenuNavItems = burgerMenu.querySelectorAll('nav p');
-const navActive = burgerMenu.querySelector('.nav-active');
-
-burgerMenuNavItems.forEach((item, index) => {
-    function moveBurgerCursor() {
-        burgerMenuNavItems.forEach((navItem, navIndex) => {
-            navActive.classList.remove(`nav-active-${navIndex+1}`);
-        });
+try {
+    const burger = document.querySelector('.burger');
+    const burgerMenu = document.querySelector('.burger-menu');
+    const cross = document.querySelector('.cross');
     
-        navActive.classList.add(`nav-active-${index+1}`);
-    }
+    burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
+    burgerMenu.style.transitionDuration = "500ms";
+    
+    burger.addEventListener('click', () => {
+        burgerMenu.style.left = "0";
+    });
+    
+    burger.addEventListener('touchend', () => {
+        burgerMenu.style.left = "0";
+    });
+    
+    cross.addEventListener('click', () => {
+        burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
+    });
+    
+    cross.addEventListener('touchend', () => {
+        burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
+    });
+    
+    const burgerMenuNavItems = burgerMenu.querySelectorAll('nav p');
+    const navActive = burgerMenu.querySelector('.nav-active');
+    
+    burgerMenuNavItems.forEach((item, index) => {
+        function moveBurgerCursor() {
+            burgerMenuNavItems.forEach((navItem, navIndex) => {
+                navActive.classList.remove(`nav-active-${navIndex+1}`);
+            });
+        
+            navActive.classList.add(`nav-active-${index+1}`);
+        }
+    
+        item.addEventListener('mouseover', moveBurgerCursor);
+        item.addEventListener('touchstart', moveBurgerCursor);
+    })
+} catch(e) {
+    console.error(e);
+}
 
-    item.addEventListener('mouseover', moveBurgerCursor);
-    item.addEventListener('touchstart', moveBurgerCursor);
-});
-
-    // Первый экран
+// Первый экран
+try {
     const targetBlocks = document.querySelectorAll(".target-block");
     
     targetBlocks.forEach(block => {
@@ -78,18 +83,20 @@ burgerMenuNavItems.forEach((item, index) => {
     
                 target.classList.add('selected');
                 targetInfo.classList.add('open');
-
+    
             } else {
                 target.classList.remove('selected');
                 targetInfo.classList.remove('open');
             }
         }
-    
-        if (window.clientWidth > 992)
+        if (window.innerWidth > 992)
             target.addEventListener('click', homeTarget);
         else 
             target.addEventListener('touchstart', homeTarget);
     });
+} catch(e) {
+    console.error(e);
+}
 
 // Количество комнат
 const roomsCount = document.querySelector('#roomsCount');
