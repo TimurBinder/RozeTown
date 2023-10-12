@@ -66,6 +66,7 @@ h3, h4 {
 figcaption {
     color: #9d9d9d;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 figure div {
