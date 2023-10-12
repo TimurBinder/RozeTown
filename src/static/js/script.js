@@ -94,19 +94,19 @@ try {
         }
         if (window.innerWidth > 992) {
             target.addEventListener('click', homeTarget);
-            document.querySelector('body').addEventListener('click', e => {
-                if (e.target != target && target.contains(e.target) == false 
-                    && e.target != targetInfo && targetInfo.contains(e.target) == false
+            document.querySelector('body').addEventListener('touchstart', e => {
+                if (e.target.classList.contains('target') == false && e.target.parentElement.classList.contains('target') == false
+                    && e.target.classList.contains('target-info') == false && e.target.parentElement.classList.contains('target-info') == false
                     && targetInfo.classList.contains('open')) {
-                    homeTarget();
+                        homeTarget();
                 }
             });
         }
         else {
             target.addEventListener('touchstart', homeTarget);
             document.querySelector('body').addEventListener('touchstart', e => {
-                if (e.target != target && target.contains(e.target) == false 
-                    && e.target != targetInfo && targetInfo.contains(e.target) == false
+                if (e.target.classList.contains('target') == false && e.target.parentElement.classList.contains('target') == false
+                    && e.target.classList.contains('target-info') == false && e.target.parentElement.classList.contains('target-info') == false
                     && targetInfo.classList.contains('open')) {
                         homeTarget();
                 }
