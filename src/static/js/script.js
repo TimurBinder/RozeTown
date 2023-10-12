@@ -1,3 +1,4 @@
+// Маска для чисел
 try {
     document.querySelectorAll('input.number').forEach(input => {
         let regex = new RegExp("/[0-9]/");
@@ -69,30 +70,48 @@ try {
         let targetInfo = block.querySelector('.target-info');
     
         function homeTarget() {
-            if (target.classList.contains('selected') == false) {
-                document.querySelectorAll('.target').forEach(tar => {
-                    tar.classList.remove('selected');
-                });
+            setTimeout(() => {
+                if (target.classList.contains('selected') == false) {
+                    document.querySelectorAll('.target').forEach(tar => {
+                        tar.classList.remove('selected');
+                    });
+            
+                    document.querySelectorAll('.target-info').forEach(info => {
+                        setTimeout(() => {
+                            if (info != targetInfo)
+                                info.classList.remove('open');
+                        }, 500);
+                    });
         
-                document.querySelectorAll('.target-info').forEach(info => {
-                    setTimeout(() => {
-                        if (info != targetInfo)
-                            info.classList.remove('open');
-                    }, 500);
-                });
-    
-                target.classList.add('selected');
-                targetInfo.classList.add('open');
-    
-            } else {
-                target.classList.remove('selected');
-                targetInfo.classList.remove('open');
-            }
+                    target.classList.add('selected');
+                    targetInfo.classList.add('open');
+        
+                } else {
+                    target.classList.remove('selected');
+                    targetInfo.classList.remove('open');
+                }
+            }, 4);
         }
-        if (window.innerWidth > 992)
+        if (window.innerWidth > 992) {
             target.addEventListener('click', homeTarget);
-        else 
+            document.querySelector('body').addEventListener('click', e => {
+                if (e.target != target && target.contains(e.target) == false 
+                    && e.target != targetInfo && targetInfo.contains(e.target) == false
+                    && targetInfo.classList.contains('open')) {
+                    homeTarget();
+                }
+            });
+        }
+        else {
             target.addEventListener('touchstart', homeTarget);
+            document.querySelector('body').addEventListener('touchstart', e => {
+                if (e.target != target && target.contains(e.target) == false 
+                    && e.target != targetInfo && targetInfo.contains(e.target) == false
+                    && targetInfo.classList.contains('open')) {
+                        homeTarget();
+                }
+            });
+        } 
     });
 } catch(e) {
     console.error(e);
