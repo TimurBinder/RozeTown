@@ -1035,36 +1035,39 @@ section.info hr {
 
 .strict-visible-slider .list {
     position: relative;
+    display: flex;
 }
 
 .strict-visible-slider .slide, .strict-visible-slider .list {
     width: 100%;
-    height: 150px;
 }
 
 .strict-visible-slider .slide {
-    position: absolute;
-    left: 0;
-    top: 0;
+    transition: opacity 500ms ease-in;
+    -moz-transition: opacity 500ms ease-in;
+    -webkit-transition: opacity 500ms ease-in;
+    -o-transition: opacity 500ms ease-in;
     opacity: 0;
-    transition-duration: 500ms;
+    position: absolute;
+    z-index: -5;
 }
 
 .strict-visible-slider .slide.selected {
     opacity: 1;
+    height: auto;
+    position: static;
 }
 
 .strict-visible-slider .slide img {
     width: 100%;
 }
 
-.strict-visible-slider .slide div:last-child img {
-    max-height: 44%;
+.strict-visible-slider .slide div:nth-child(2) img {
+    width: 32%;
 }
 
-.strict-visible-slider .slide [class^="col"] {
-    padding-right: calc(var(--bs-gutter-x) * .25);
-    padding-left: calc(var(--bs-gutter-x) * .25);
+.strict-visible-slider .slide div:nth-child(3) img {
+    width: 49%;
 }
 
 .strict-visible-slider-progress {
@@ -1393,10 +1396,23 @@ footer .copyright {
         width: 380px;
     }
 
+    .strict-visible-slider .slide div:first-child img {
+        height: 100%;
+    }
+
+    .strict-visible-slider .slide div:nth-child(2) img,
+    .strict-visible-slider .slide div:nth-child(3) img {
+        width: 100%;
+    }
+
+    .strict-visible-slider .slide div:nth-child(2) img {
+        height: 32%;
+    }
+
+    .strict-visible-slider .slide div:nth-child(3) img {
+        height: 49%;
+    }
     
-.strict-visible-slider .slide, .strict-visible-slider .list {
-    height: 250px;
-}
 }
 
 @media (min-width: 992px) {
@@ -1517,11 +1533,6 @@ footer .copyright {
     .commissioning .caption {
         font-size: 18px;
     }
-
-    
-    .strict-visible-slider .slide, .strict-visible-slider .list {
-        height: 350px;
-    } 
 }
 
 @media (min-width: 1200px) {
@@ -1688,10 +1699,6 @@ footer .copyright {
         font-size: 24px;
     }
 
-    .strict-visible-slider .slide, .strict-visible-slider .list {
-        height: 400px;
-    }
-
     section.plan .card {
         width: 90%;
         border: none;
@@ -1837,10 +1844,6 @@ footer .copyright {
         width: 600px;
         height: 500px;
     }
-
-    .strict-visible-slider .slide, .strict-visible-slider .list {
-        height: 500px;
-    }
 }
 @media (min-width: 1600px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
@@ -1905,10 +1908,6 @@ footer .copyright {
 
     .commissioning .card {
         width: 90%;
-    }
-
-    .strict-visible-slider .slide, .strict-visible-slider .list {
-        height: 550px;
     }
 }
 
