@@ -78,7 +78,6 @@ figure div {
 .arrow {
     cursor: pointer;
     user-select: none;
-    height: 30px;
 }
 
 .circle {
