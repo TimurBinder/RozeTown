@@ -1,8 +1,11 @@
 :root {
     --on-sale-color: #98cf50;
-    --reserve: #fbb849;
-    --booking: #f4325f;
-    --sold: #f4f6fb;
+    --on-sale-selected-color: #6ea822;
+    --reserve-color: #fbb849;
+    --reserve-selected-color: #ff9d00;
+    --booking-color: #f4325f;
+    --booking-selected-color: #ff003c;
+    --sold-color: #f4f6fb;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -31,12 +34,13 @@ header * {
     text-decoration: none;
 }
 
-footer {
-    padding-top: 100px;
-}
-
 body {
     overflow-x: hidden;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
 }
 
 h2 {
@@ -334,7 +338,7 @@ figure div {
     z-index: 7;
 }
 
-.burger-menu nav p {
+.burger-menu nav a {
     font-size: 24px;
     font-weight: 700;
     color: #3B485D;
@@ -426,11 +430,11 @@ figure div {
 }
 
 .button.option:hover {
-    background-color: #f4325f;
+    background-color: #00bfff;
 }
 
 .button:hover {
-    background-color: #2dccff;
+    background-color: #fd003b;
 }
 
 .phone {
@@ -440,14 +444,15 @@ figure div {
     white-space: nowrap;
 }
 
-.menu p {
+.menu a {
     text-transform: uppercase;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
+    color: #fff;
 }
 
-.menu p:after {
+.menu a:after {
     content: '';
     display: block;
     height: 2px;
@@ -459,7 +464,7 @@ figure div {
     animation: hoverLineOut 500ms ease-out;
 }
 
-.menu p:hover:after {
+.menu a:hover:after {
     visibility: visible;
     animation: hoverLineTo 500ms ease-out;
 }
@@ -547,13 +552,13 @@ figure div {
 }
 
 .target-info {
-    position: absolute;
+    position: fixed;
     z-index: -3;
     padding: 20px;
     border-radius: 15px;
     background-color: #fff;
     width: fit-content;
-    left: 10%;
+    left: 28%;
     bottom: -150px;
     opacity: 0;
     transition-duration: 500ms;
@@ -699,7 +704,7 @@ figure div {
 .home-plan .appartment {
     width: 94%;
     color: #4242428a;
-    background-color: var(--sold);
+    background-color: var(--sold-color);
     border-radius: 15px;
     padding: 8px;
     font-weight: 500;
@@ -712,8 +717,23 @@ figure div {
     color: #fff;
 }
 
+.home-plan .appartment.onsale:hover,
+.home-plan .appartment.onsale.selected {
+    background-color: var(--on-sale-selected-color);
+}
+
+.home-plan .appartment.reserve:hover,
+.home-plan .appartment.reserve.selected {
+    background-color: var(--reserve-selected-color);
+}
+
+.home-plan .appartment.booking:hover,
+.home-plan .appartment.booking.selected {
+    background-color: var(--booking-selected-color);
+}
+
 .home-plan .appartment.reserve {
-    background-color: var(--reserve);
+    background-color: var(--reserve-color);
     color: #fff;
 }
 
@@ -724,16 +744,8 @@ figure div {
     cursor: pointer;
 }
 
-.home-plan .appartment.onsale:hover, 
-.home-plan .appartment.reserve:hover, 
-.home-plan .appartment.booking:hover, 
-.home-plan .appartment.selected {
-    background-color: #6ea822 !important;
-    color: #fff !important;
-}
-
 .home-plan .appartment.booking {
-    background-color: var(--booking);
+    background-color: var(--booking-color);
     color: #fff;
 }
 
@@ -766,15 +778,15 @@ figure div {
 }
 
 .status .reserve .circle {
-    background-color: var(--reserve);
+    background-color: var(--reserve-color);
 }
 
 .status .booking .circle {
-    background-color: var(--booking);
+    background-color: var(--booking-color);
 }
 
 .status .sold .circle {
-    background-color: var(--sold);
+    background-color: var(--sold-color);
 }
 
 .appartment-block {
@@ -1021,6 +1033,190 @@ section.info hr {
     font-weight: 500;
 }
 
+.strict-visible-slider .list {
+    position: relative;
+}
+
+.strict-visible-slider .slide, .strict-visible-slider .list {
+    height: 150px;
+}
+
+.strict-visible-slider .slide {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    transition-duration: 500ms;
+}
+
+.strict-visible-slider .slide.selected {
+    opacity: 1;
+}
+
+.strict-visible-slider .slide img {
+    width: 100%;
+}
+
+.strict-visible-slider .slide div:last-child img {
+    max-height: 44%;
+}
+
+.strict-visible-slider .slide [class^="col"] {
+    padding-right: calc(var(--bs-gutter-x) * .25);
+    padding-left: calc(var(--bs-gutter-x) * .25);
+}
+
+.strict-visible-slider-progress {
+    width: 250px;
+}
+
+section.plan {
+    padding-top: 120px;
+}
+
+section.plan .card {
+    width: 100%;
+    border: none;
+    background-color: #f4f6fb;
+    padding: 30px 40px;
+    border-radius: 25px;
+}
+
+section.plan .appartment-class {
+    font-size: 60px;
+    color: #2dccff;
+    line-height: 100%;
+    font-weight: 500;
+}
+
+section.plan .square {
+    font-size: 32px;
+    color: #424242;
+    font-weight: 500;
+    line-height: 110%;
+}
+
+section.plan img {
+    max-width: 100%;
+    height: 320px;
+}
+
+section.plan .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c8cddb;
+    color: #fff;
+    width: 80%;
+    height: 45px;
+    margin: auto;
+}
+
+section.plan .button:hover {
+    background-color: #2dccff;
+}
+
+section.map {
+    position: relative;
+    margin-top: 120px;
+}
+
+#map {
+    width: 100%;
+    height: 800px;
+}
+
+[class*="ymaps-2"][class*="-ground-pane"] {
+    filter: grayscale(1);
+	-ms-filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+	-moz-filter: grayscale(1); 
+	-o-filter: grayscale(1);
+}
+
+section.map .controls {
+    font-size: 36px;
+    color: #fff;
+    font-weight: 500;
+    position: absolute;
+    z-index: 3000;
+    top: 10%;
+    right: 10%;
+}
+
+section.map .controls div {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2dccff;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #363a3e;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 200;
+    line-height: 140%;
+    padding-bottom: 60px;
+    padding-top: 60px;
+}
+
+footer nav.menu {
+    margin-top: 0;
+}
+
+footer .info {
+    margin-top: 60px;
+}
+
+footer a.phone {
+    font-size: 30px;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+footer .options-menu {
+    height: 100%;
+}
+
+footer .events a {
+    text-decoration: underline;
+}
+
+footer .socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 100%;
+    background-color: #fff;
+    transition-duration: 200ms;
+}
+
+footer .socials a svg path {
+    fill: #363a3e;
+}
+
+footer .socials a:hover {
+    background-color: #2dccff;
+}
+
+footer .socials a:hover svg path {
+    fill: #fff;
+}
+
+footer .copyright {
+    font-size: 18px;
+    font-weight: 200;
+    margin-top: 120px;
+}
+
 @media (min-width: 576px) {
     .logo .name {
         font-size: 19px;
@@ -1116,7 +1312,7 @@ section.info hr {
 
     .target-info {
         padding: 35px;
-        left: 15%;
+        left: 35%;
         bottom: -90px;
     }
     
@@ -1195,6 +1391,11 @@ section.info hr {
     .location .button {
         width: 380px;
     }
+
+    
+.strict-visible-slider .slide, .strict-visible-slider .list {
+    height: 250px;
+}
 }
 
 @media (min-width: 992px) {
@@ -1315,6 +1516,11 @@ section.info hr {
     .commissioning .caption {
         font-size: 18px;
     }
+
+    
+    .strict-visible-slider .slide, .strict-visible-slider .list {
+        height: 350px;
+    } 
 }
 
 @media (min-width: 1200px) {
@@ -1344,7 +1550,7 @@ section.info hr {
         margin-top: 40px;        
     }
 
-    .menu p {
+    .menu a {
         font-size: 16px;
     }
 
@@ -1354,7 +1560,7 @@ section.info hr {
     }
 
     .target-info {
-        left: 20%;
+        left: 40%;
         bottom: 20px;
     } 
 
@@ -1480,6 +1686,52 @@ section.info hr {
     .commissioning .caption {
         font-size: 24px;
     }
+
+    .strict-visible-slider .slide, .strict-visible-slider .list {
+        height: 400px;
+    }
+
+    section.plan .card {
+        width: 90%;
+        border: none;
+        background-color: #f4f6fb;
+        padding: 30px 40px;
+        border-radius: 25px;
+    }
+    
+    section.plan .appartment-class {
+        font-size: 66px;
+        color: #2dccff;
+        line-height: 100%;
+        font-weight: 500;
+    }
+    
+    section.plan .square {
+        font-size: 32px;
+        color: #424242;
+        font-weight: 500;
+        line-height: 110%;
+    }
+    
+    section.plan img {
+        max-width: 100%;
+        height: 320px;
+    }
+    
+    section.plan .button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #c8cddb;
+        color: #fff;
+        width: 80%;
+        height: 45px;
+        margin: auto;
+    }
+    
+    section.plan .button:hover {
+        background-color: #2dccff;
+    }
 }
 
 @media (min-width: 1400px) {
@@ -1512,8 +1764,8 @@ section.info hr {
     }
 
     .target-info {
-        left: 25%;
-        bottom: 40px;
+        left: 43%;
+        bottom: 40%;
     } 
 
     #target-1 .line {
@@ -1584,6 +1836,10 @@ section.info hr {
         width: 600px;
         height: 500px;
     }
+
+    .strict-visible-slider .slide, .strict-visible-slider .list {
+        height: 500px;
+    }
 }
 @media (min-width: 1600px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
@@ -1627,7 +1883,7 @@ section.info hr {
         margin-top: 80px;
     }
 
-    .menu p {
+    .menu a {
         font-size: 20px;
     }
 
@@ -1648,6 +1904,10 @@ section.info hr {
 
     .commissioning .card {
         width: 90%;
+    }
+
+    .strict-visible-slider .slide, .strict-visible-slider .list {
+        height: 550px;
     }
 }
 

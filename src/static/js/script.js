@@ -41,7 +41,7 @@ try {
         burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
     });
     
-    const burgerMenuNavItems = burgerMenu.querySelectorAll('nav p');
+    const burgerMenuNavItems = burgerMenu.querySelectorAll('nav a');
     const navActive = burgerMenu.querySelector('.nav-active');
     
     burgerMenuNavItems.forEach((item, index) => {
@@ -208,6 +208,7 @@ function createSlider(slider, progress) {
     const imagesBlock = slider.querySelector('.images');
     const images = imagesBlock.querySelectorAll('img');
     let currentIndex = 0;
+    progress.querySelector('.total').innerText = images.length;
     progress.querySelector('.current').innerText = "1";
 
     progress.querySelector('.arrow-left').addEventListener('click', () => {
@@ -247,8 +248,8 @@ try {
 function showAppartmentInfo(appartment) {
     const info = document.querySelector('.appartment-block');
 
-    info.querySelector('[name="home"]').value = document.querySelector('.choose-apartment [name="selectHome"]').value;
-    info.querySelector('[name="entrance"]').value = document.querySelector('.choose-apartment input[name="selectEntrance"]').value;
+    info.querySelector('[name="home"]').value = document.querySelector('.choose-appartment [name="selectHome"]').value;
+    info.querySelector('[name="entrance"]').value = document.querySelector('.choose-appartment input[name="selectEntrance"]').value;
     info.querySelector('[name="appartment"]').value = appartment.querySelector('.number').textContent;
     info.querySelector('[name="square"]').value = appartment.querySelector('.square').textContent;
     info.querySelector('.square').innerText = appartment.querySelector('.square').textContent;
@@ -312,14 +313,14 @@ try {
                     && e.target.classList.contains('onsale') == false
                     && e.target.classList.contains('reserve') == false)
                         return;
-                    document.querySelector('.choose-apartment [name="selectEntrance"]').value = entrance.querySelector('h4').textContent.trim(' ').split(' ')[1];
+                    document.querySelector('.choose-appartment [name="selectEntrance"]').value = entrance.querySelector('h4').textContent.trim(' ').split(' ')[1];
                     switchAppartment(e.target);
                 } else if (e.target.parentElement.classList.contains('appartment')) {
                     if (e.target.parentElement.classList.contains('booking') == false 
                     && e.target.parentElement.classList.contains('onsale') == false
                     && e.target.parentElement.classList.contains('reserve') == false)
                         return;
-                    document.querySelector('.choose-apartment [name="selectEntrance"]').value = entrance.querySelector('h4').textContent.trim(' ').split(' ')[1];
+                    document.querySelector('.choose-appartment [name="selectEntrance"]').value = entrance.querySelector('h4').textContent.trim(' ').split(' ')[1];
                     switchAppartment(e.target.parentElement);
                 }
             });
@@ -330,22 +331,32 @@ try {
 }
 
 // Выбор дома
+function changeHome(homes, id) {
+    homes.forEach(home => {
+        if (home.id == `home-${id}`) {
+            home.classList.add('selected');
+            if (document.querySelectorAll(`#home-${id} .home-plan`)[0].querySelector('.home .home-plan .appartment.onsale') != undefined)
+            switchAppartment(document.querySelectorAll(`#home-${id} .home-plan`)[0].querySelector('.home .home-plan .appartment.onsale'));
+            else if (document.querySelectorAll(`#home-${id} .home-plan`)[0].querySelector('.home .home-plan .appartment.reserve') != undefined)
+                switchAppartment(document.querySelectorAll(`#home-${id} .home-plan`)[0].querySelector('.home .home-plan .appartment.booking'));
+            else if (document.querySelectorAll(`#home-${id} .home-plan`)[0].querySelector('.home .home-plan .appartment.booking') != undefined)
+                switchAppartment(document.querySelectorAll(`#home-${id} .home-plan`)[0].querySelector('.home .home-plan .appartment.booking'));
+            // switchAppartment(document.querySelectorAll(`#home-${id} .home-plan`)[0].querySelector('.appartment'));
+        }
+        else {
+            home.classList.remove('selected');
+        }
+
+        document.querySelector('input[name="selectHome"]').value = id;
+    });
+}
+
 try {
     const selectWrap = document.querySelector('#home-wrap');
     const homes = document.querySelectorAll('.home');
     selectWrap.querySelectorAll('option').forEach(option => {
         option.addEventListener('click', () => {
-            homes.forEach(home => {
-                if (home.id == `home-${option.textContent}`) {
-                    home.classList.add('selected');
-                    switchAppartment(document.querySelectorAll(`#home-${option.textContent} .home-plan`)[0].querySelector('.appartment'));
-                }
-                else {
-                    home.classList.remove('selected');
-                }
-
-                document.querySelector('input[name="selectHome"]').value = option.textContent;
-            });
+            changeHome(homes, option.textContent);
         });
     });
 } catch(e) {
@@ -357,6 +368,132 @@ try {
 
 try {
     createSlider(document.querySelector('.location-slider'), document.querySelector('.location-slider-progress'));
+} catch(e) {
+    console.error(e);
+}
+
+// Визуализация ЖК
+// Слайдер
+try {
+    const slider = document.querySelector('.strict-visible-slider');
+    const slides = slider.querySelectorAll('.slide');
+    const progress = document.querySelector('.strict-visible-slider-progress');
+    let index = 0;
+
+    progress.querySelector('.current').innerText = index + 1;
+    progress.querySelector('.total').innerText = slides.length;
+
+    progress.querySelector('.arrow-left').addEventListener('click', () => {
+        slides[index].classList.remove('selected');
+        index--;
+
+        if (index < 0)
+            index = slides.length - 1;
+
+        slides[index].classList.add('selected');
+
+        progress.querySelector('.current').innerText = index + 1;
+    });
+
+    progress.querySelector('.arrow-right').addEventListener('click', () => {
+        slides[index].classList.remove('selected');
+        index++;
+
+        if (index > slides.length - 1)
+            index = 0;
+
+        slides[index].classList.add('selected');
+
+        progress.querySelector('.current').innerText = index + 1;
+    });
+} catch(e) {
+    console.error(e);
+}
+
+// Планировки
+try {
+    const section = document.querySelector('section.plan');
+    const radioBlock = section.querySelector('[data-radio]');
+    const cards = section.querySelectorAll('.card');
+
+    radioBlock.querySelectorAll('.select').forEach(input => {
+        input.addEventListener('click', () => {
+            if (input.classList.contains('selected')) {
+                cards.forEach(card => {
+                    if (card.querySelector('[name="roomsCount"]').value == input.querySelector('input').value)
+                        card.classList.remove('d-none');
+                    else 
+                        card.classList.add('d-none');
+                });
+            }
+        });
+    });
+} catch(e) {
+    console.error(e);
+}
+
+// Карта
+try {
+    const plus = document.querySelector('section.map .plus');
+    const minus = document.querySelector('section.map .minus');
+
+    ymaps.ready(init);
+    function init(){
+        // Создание карты.
+        var myMap = new ymaps.Map("map", {
+            center: [46.9336550, 142.7547400],
+            zoom: 14,
+            controls: []
+        });
+
+        var myPlacemark = new ymaps.Placemark([46.9336550, 142.7547400], {}, {
+            iconLayout: 'default#image',
+            iconImageHref: 'src/media/icons/mapRose.png',
+            icon_imagesize: [30, 28],
+            iconImageOffset: [-3, -42]
+        });
+
+        myMap.geoObjects.add(myPlacemark);
+        myMap.behaviors.disable('scrollZoom');
+
+        plus.addEventListener("click", function(){
+            myMap.setZoom( myMap.getZoom() + 1 );
+        });
+
+        minus.addEventListener("click", function(){
+            myMap.setZoom( myMap.getZoom() + -1 );
+        });
+    }
+    
+} catch(e) {
+    console.error(e);
+}
+
+// Плавная прокрутка
+try {
+    const anchors = document.querySelectorAll('[href*="#"]')
+    for (let anchor of anchors) {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        
+        const blockID = anchor.getAttribute('href').substr(1)
+        
+        document.getElementById(blockID).scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
+        if (anchor.parentElement.classList.contains('open'))
+            anchor.parentElement.classList.remove('open');
+
+        if (anchor.hasAttribute('data-home-number')) {
+            document.querySelector(`${anchor.getAttribute('href')} #home-wrap .select .value`).innerText = anchor.getAttribute('data-home-number');
+            document.querySelector(`${anchor.getAttribute('href')} #home-wrap select`).value = anchor.getAttribute('data-home-number');
+            changeHome(document.querySelectorAll(`${anchor.getAttribute('href')} .home`), anchor.getAttribute('data-home-number'));
+        }
+
+      });
+    }
 } catch(e) {
     console.error(e);
 }
