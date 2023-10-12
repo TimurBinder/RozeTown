@@ -496,6 +496,7 @@ try {
         e.preventDefault();
         
         const blockID = anchor.getAttribute('href').substr(1)
+        const burgerMenu = document.querySelector('.burger-menu');
         
         document.getElementById(blockID).scrollIntoView({
           behavior: 'smooth',
@@ -509,8 +510,10 @@ try {
             document.querySelector(`${anchor.getAttribute('href')} #home-wrap .select .value`).innerText = anchor.getAttribute('data-home-number');
             document.querySelector(`${anchor.getAttribute('href')} #home-wrap select`).value = anchor.getAttribute('data-home-number');
             changeHome(document.querySelectorAll(`${anchor.getAttribute('href')} .home`), anchor.getAttribute('data-home-number'));
+            document.querySelector(`#target-${anchor.getAttribute('data-home-number')}`).classList.remove('selected');
+        } else if (burgerMenu.contains(anchor)) {
+            burgerMenu.style.left = `-${burgerMenu.clientWidth}px`;
         }
-
       });
     }
 } catch(e) {
